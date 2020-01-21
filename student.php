@@ -9,12 +9,26 @@ class Student extends Degree implements IStorage
     public static $filePointer;
     public static $mysql;
 
-    public function __construct($name, $surname, $date, $sex)
+    private function __construct($name, $surname, $date, $sex)
     {
         $this->setName($name);
         $this->setSurname($surname);
         $this->setBirthday($date);
         $this->setSex($sex);
+    }
+    public static function constructByFile($filename)
+    {
+        $student = explode(" ", file($filename)[0]);
+        $name = $student[0];
+        $surname = $student[1];
+        $date = $student[2];
+        $sex = $student[3];
+        return new static($name, $surname, $date, $sex);
+    }
+
+    public static function defaultConstruct($name, $surname, $date, $sex)
+    {
+        return new static($name, $surname, $date, $sex);
     }
 
     public function addSubject($name, $hours, $description, $date, $mark)
@@ -24,7 +38,7 @@ class Student extends Degree implements IStorage
     }
     public function infoCareer()
     {
-        $s = $this->name . " " . $this->surname . " (" . $this->sex . ") born in " . $this->dateOfBirth;
+        $s = $this->name . " " . $this->surname . " " . $this->sex . " " . $this->dateOfBirth;
         if ($this->degree == null) {
             $s .= " has no degree. ";
         } else {

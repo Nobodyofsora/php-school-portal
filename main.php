@@ -23,9 +23,9 @@ include_once("teacher.php");
 // }
 
 //students
-$manuel = new Student("Manuel", "Amato", "02/05/1996", "male");
-$enrico = new Student("Enrico", "Terranova", "15/02/2000", "male");
-$davide = new Student("Davide", "Flex", "02/05/1994", "male");
+$manuel = Student::constructByFile("html/ITIS SteveJobs/php-school-portal/StudentStorage.txt");
+$enrico = Student::defaultConstruct("Enrico", "Terranova", "15/02/2000", "male");
+$davide = Student::defaultConstruct("Davide", "Flex", "02/05/1994", "male");
 echo $manuel->infoCareer();
 //subjects
 $php = new Subject("PHP", 130, "Developing an PHP page");
