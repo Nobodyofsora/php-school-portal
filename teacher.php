@@ -51,6 +51,8 @@ class Professor extends Degree implements IStorage
 
             $file = "html/ITIS SteveJobs/php-school-portal/TeacherStorage.txt";
             file_put_contents($file, $this->infoCareer() . "\n", FILE_APPEND);
+        } else if ($type == "db") {
+            connect();
         }
     }
     function read($type = null)
@@ -58,6 +60,8 @@ class Professor extends Degree implements IStorage
         if ($type == null) {
             $file = file("html/ITIS SteveJobs/php-school-portal/StudentStorage.txt");
             print_r($file[0]);
+        } else if ($type == "db") {
+            connect();
         }
     }
 }

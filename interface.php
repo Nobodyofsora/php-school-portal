@@ -1,4 +1,6 @@
 <?php
+const CURRENT_YEAR = 2020;
+
 interface Person
 {
     public function getName();
@@ -20,7 +22,7 @@ trait PersonalData
     protected $sex;
     function getAge()
     {
-        return CURRENT_YEAR - explode("/", $this->dateOfBirth)[2];
+        return CURRENT_YEAR - explode("/", $this->dateOfBirth)[0];
     }
     public function getName()
     {

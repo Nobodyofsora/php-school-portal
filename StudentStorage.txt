@@ -1,2 +1,2 @@
-Enrico Terranova male 15/02/2000 has no degree. They passed Back-End ( 20/01/2020) with a score of 8. 
+Enrico Terranova male 2000/05/12 has no degree. They passed Back-End ( 20/01/2020) with a score of 8. 
 Davide Flex male 02/05/1994 has no degree. They passed Back-End ( 20/01/2020) with a score of 7. 

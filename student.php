@@ -21,8 +21,9 @@ class Student extends Degree implements IStorage
         $student = explode(" ", file($filename)[0]);
         $name = $student[0];
         $surname = $student[1];
-        $date = $student[2];
-        $sex = $student[3];
+        $sex = $student[2];
+        $date = $student[3];
+
         return new static($name, $surname, $date, $sex);
     }
 
@@ -80,6 +81,28 @@ class Student extends Degree implements IStorage
 
             $file = "html/ITIS SteveJobs/php-school-portal/StudentStorage.txt";
             file_put_contents($file, $this->infoCareer() . "\n", FILE_APPEND);
+        } else if ($type == "db") {
+            connect();
+            $rowToAdd = array(
+                "id" => null,
+                "name" => $this->getName(),
+                "surname" => $this->getSurname(),
+                "birthday" => $this->getBirthday(),
+                "age" => $this->getAge()
+            );
+            $student = insertRecords("Students", $rowToAdd);
+            if ($this->subjectsDone->count != 0) {
+                $student->fetch_assoc();
+                foreach ($this->subjectsDone as $value) {
+                    $rowToAdd = array(
+                        "Student_id" => $student["id"],
+                        "name" => $value->name,
+                        "result" => $value->grade,
+                        "date" => $value->date
+                    );
+                    $subject = insertRecords("Subjects", $rowToAdd);
+                }
+            }
         }
     }
     function read($type = null)
@@ -87,6 +110,13 @@ class Student extends Degree implements IStorage
         if ($type == null) {
             $file = file("html/ITIS SteveJobs/php-school-portal/StudentStorage.txt");
             print_r($file[0]);
+        } else if ($type == "db") {
+            $arrayFilter = array(
+                "name" => $this->getName(),
+                "surname" => $this->getSurname(),
+                "birthday" => $this->getBirthday()
+            );
+            return selectAll("Students", $arrayFilter);
         }
     }
 }
